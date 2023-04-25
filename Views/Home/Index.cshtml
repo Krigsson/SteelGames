@@ -2,19 +2,24 @@
     ViewBag.Title = "Home Page";
 }
 
+<link href="~/Content/page_styles/main_page.css" rel="stylesheet" />
+<body>
+    <div class="gameGrid">
+        @foreach (var row in Model.Games)
+        {
+            <a href="@Url.Action("GameDetails", "Home", new { gameID = row.GameID })">
+                <div class="gameCard">
+                    <img src="https://assets-prd.ignimgs.com/2022/04/19/wow-dragonflight-button-1-1650398895381.jpg" alt="@row.Name" />
+                    <div class="gameCardContent">
+                        <h3>@row.Name</h3>
+                        <p class="gameCardPrice">Price: @row.Price UAH</p>
+                    </div>
 
-<table id="userTable">
-    <tr>
-        <th>GameID</th>
-        <th>Name</th>
-        <th>Price</th>
-    </tr>
-    @foreach (var row in Model.Games)
-    {
-        <tr>
-            <td>@row.GameID</td>
-            <td>@row.Name</td>
-            <td>@row.Price</td>
-        </tr>
-    }
-</table>
+                </div>
+            </a>
+        }
+    </div>
+</body>
+
+
+@*https://assets-prd.ignimgs.com/2022/04/19/wow-dragonflight-button-1-1650398895381.jpg*@

@@ -9,14 +9,21 @@ namespace SteelGames.Controllers
 {
     public class HomeController : Controller
     {
+        DBConnector connector = DBConnector.getInstance();
         public ActionResult Index()
         {
             var model = new GameModel();
-            DBConnector connector = DBConnector.getInstance();
             List<Game> games = connector.getGamesByQuery("SELECT * FROM Game");
 
             model.Games = games;
             return View(model);
+        }
+
+        public ActionResult GameDetails(int gameID)
+        {
+            Game game = connector.getGamesByQuery($"SELECT * FROM Game WHERE GameID = {gameID}")[0];
+
+            return View(game);
         }
 
         public ActionResult About()
