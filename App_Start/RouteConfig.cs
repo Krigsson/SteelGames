@@ -18,6 +18,12 @@ namespace SteelGames
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "GameDetails",
+                url: "Game/GameDetails/{id}",
+                defaults: new { controller = "Home", action = "Details", id = UrlParameter.Optional }
+                );
         }
     }
 }
