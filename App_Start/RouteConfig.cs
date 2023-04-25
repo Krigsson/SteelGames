@@ -24,6 +24,13 @@ namespace SteelGames
                 url: "Game/GameDetails/{id}",
                 defaults: new { controller = "Home", action = "Details", id = UrlParameter.Optional }
                 );
+
+            routes.MapRoute(
+                name: "Registration",
+                url: "Register",
+                defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional }
+                );
+
         }
     }
 }

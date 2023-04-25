@@ -43,26 +43,6 @@ namespace SteelGames.Models
             return command;
         }
 
-        public void printDBQueryResult(string querySTR)
-        {
-            MySqlCommand command = query(querySTR);
-            MySqlDataReader reader = command.ExecuteReader();
-
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        Console.Write($"{reader.GetString(i)} ");
-                    }
-
-                    Console.WriteLine();
-                }
-            }
-            reader.Close();
-        }
-
         public List<dynamic> getDBResponseByQuery(string querySTR)
         {
             List<dynamic> data = new List<dynamic>();
@@ -103,12 +83,45 @@ namespace SteelGames.Models
                     game.Description = reader["Description"].ToString();
                     game.Price = double.Parse(reader["Price"].ToString());
                     game.CategoryName = reader["CategoryName"].ToString();
+                    game.SystemReqID = int.Parse(reader["SystemRequirementsID"].ToString());
                     data.Add(game);
                 }
             }
             reader.Close();
 
+            getSystemRequirements(data);
+
             return data;
+        }
+
+        public void getSystemRequirements(List<Game> games)
+        {
+            foreach (Game game in games)
+            {
+                Console.WriteLine(game.SystemReqID);
+                MySqlCommand systemQuery = query($"SELECT * FROM SystemRequirements WHERE " +
+                            $"SystemRequirementsID = {game.SystemReqID}");
+                MySqlDataReader systemReader = systemQuery.ExecuteReader();
+
+                if (systemReader.HasRows)
+                {
+                    while (systemReader.Read())
+                    {
+                        game.SysReq = new SystemRequirements();
+                        game.SysReq.SystemReqID = int.Parse(systemReader["SystemRequirementsID"].ToString());
+                        game.SysReq.OS = systemReader["OS"].ToString();
+                        game.SysReq.Processor = systemReader["Processor"].ToString();
+                        game.SysReq.Memory = systemReader["Memory"].ToString();
+                        game.SysReq.Graphics = systemReader["Graphics"].ToString();
+                        game.SysReq.DirectX = systemReader["DirectX"].ToString();
+                        game.SysReq.Storage = systemReader["Storage"].ToString();
+                        game.SysReq.SoundCard = systemReader["SoundCard"].ToString();
+                    }
+                }
+
+                systemReader.Close();
+            }
+
         }
 
         //public List<User> getUsersFromDB(string querySTR)

@@ -1,0 +1,140 @@
+﻿body {
+    background-color: #23272A;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 960px;
+}
+
+.gameDetails {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.gameDetailsImage {
+    flex: 0 0 45%;
+    margin-right: 20px;
+}
+
+    .gameDetailsImage img {
+        max-width: 100%;
+        height: auto;
+    }
+
+.gameDetailsContent {
+    flex: 1;
+}
+
+.gameDetailsTitle {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.gameDetailsCategory {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.gameDetailsDescription {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.system-requirements {
+    margin-top: 20px;
+}
+
+    .system-requirements h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .system-requirements ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .system-requirements ul li {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+            .system-requirements ul li strong {
+                font-weight: bold;
+            }
+
+.gameDetailsBuyButton {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+}
+
+/* Carousel Styles */
+.carousel {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.carousel-inner {
+    width: 100%;
+    display: flex;
+    height: 400px;
+    transition: transform 0.5s;
+}
+
+.carousel-item {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+    .carousel-item img {
+        max-width: 100%;
+        height: auto;
+    }
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+}
+
+.carousel-prev,
+.carousel-next {
+    pointer-events: auto;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.carousel-prev {
+    margin-right: auto;
+}
+
+.carousel-next {
+    margin-left: auto;
+}

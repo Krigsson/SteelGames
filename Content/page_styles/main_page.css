@@ -1,8 +1,8 @@
 ﻿body {
+    margin-top: 10px;
     background-color: #1e2128;
     color: #fff;
     font-family: Arial, sans-serif;
-    margin: 0;
 }
 
 /* Game grid layout */

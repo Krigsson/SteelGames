@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/page_styles/registration_page.css" />
+</head>
+<body>
+    <div class="registration-form">
+        <h2>Registration</h2>
+        <form>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+            </div>
+            <a href="@Url.Action("ProcessRegistration", "Account")">asd
+                @*<button type="submit" class="btn-register">Register</button>*@
+            </a>
+        </form>
+    </div>
+</body>
+</html>
+
+
