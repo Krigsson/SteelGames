@@ -12,6 +12,9 @@ namespace SteelGames.Models
         public string Description { get; set; }
         public double Price { get; set; }
         public string CategoryName { get; set; }
+        public int SystemReqID { get; set; }
+
+        public SystemRequirements SysReq { get; set; }
     }
 
     public class GameModel
