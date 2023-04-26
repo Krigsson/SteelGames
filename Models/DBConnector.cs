@@ -98,7 +98,6 @@ namespace SteelGames.Models
         {
             foreach (Game game in games)
             {
-                Console.WriteLine(game.SystemReqID);
                 MySqlCommand systemQuery = query($"SELECT * FROM SystemRequirements WHERE " +
                             $"SystemRequirementsID = {game.SystemReqID}");
                 MySqlDataReader systemReader = systemQuery.ExecuteReader();
@@ -124,28 +123,49 @@ namespace SteelGames.Models
 
         }
 
-        //public List<User> getUsersFromDB(string querySTR)
-        //{
-        //    List<User> data = new List<User>();
+        public void registerNewUser(string email, string password, string phone)
+        {
+            int gamesOwned = 0;
+            DateTime currentDate = DateTime.Now;
+            int newUserID = 0;
 
-        //    MySqlCommand command = query(querySTR);
-        //    MySqlDataReader reader = command.ExecuteReader();
+            MySqlCommand response = query("SELECT MAX(UserID) FROM User");
+            MySqlDataReader reader = response.ExecuteReader();
 
-        //    if (reader.HasRows)
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            User user = new User();
-        //            user.Password = reader["Password"].ToString();
-        //            user.Email = reader["Email"].ToString();
-        //            user.PhoneNumber = reader["PhoneNumber"].ToString();
-        //            data.Add(user);
-        //        }
-        //    }
-        //    reader.Close();
+            if(reader.Read())
+            {
+                newUserID = reader.GetInt32(0);
+            }
 
-        //    return data;
-        //}
+            newUserID++;
+
+            reader.Close();
+
+            string sqlQueryInsertUser = "INSERT INTO User (UserID, Email, Password, PhoneNumber) VALUES " +
+                "(@value1, @value2, @value3, @value4)";
+            string sqlQueryInsertClient = "INSERT INTO Client (ClientID, RegistrationDate, GamesOwned) VALUES " +
+                "(@value1, @value2, @value3)";
+
+            using (MySqlCommand command = new MySqlCommand(sqlQueryInsertUser, databaseConnection))
+            {
+                command.Parameters.AddWithValue("@value1", newUserID);
+                command.Parameters.AddWithValue("@value2", email);
+                command.Parameters.AddWithValue("@value3", password);
+                command.Parameters.AddWithValue("@value4", phone);
+
+                command.ExecuteNonQuery();
+            }
+
+            using(MySqlCommand command = new MySqlCommand(sqlQueryInsertClient, databaseConnection))
+            {
+                command.Parameters.AddWithValue("@value1", newUserID);
+                command.Parameters.AddWithValue("@value2", currentDate);
+                command.Parameters.AddWithValue("@value3", gamesOwned);
+
+                command.ExecuteNonQuery();
+            }
+
+        }
 
     }
 }

@@ -21,7 +21,7 @@ namespace SteelGames
 
             routes.MapRoute(
                 name: "GameDetails",
-                url: "Game/GameDetails/{id}",
+                url: "GameDetails/{id}",
                 defaults: new { controller = "Home", action = "Details", id = UrlParameter.Optional }
                 );
 
@@ -30,7 +30,6 @@ namespace SteelGames
                 url: "Register",
                 defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional }
                 );
-
         }
     }
 }
