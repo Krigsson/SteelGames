@@ -9,7 +9,7 @@
         {
             <a href="@Url.Action("GameDetails", "Home", new { gameID = row.GameID })">
                 <div class="gameCard">
-                    <img src="https://assets-prd.ignimgs.com/2022/04/19/wow-dragonflight-button-1-1650398895381.jpg" alt="@row.Name" />
+                    <img src="~/source/images/preview/@row.PreviewImageName" alt="Preview Image" />
                     <div class="gameCardContent">
                         <h3>@row.Name</h3>
                         <p class="gameCardPrice">Price: @row.Price UAH</p>
