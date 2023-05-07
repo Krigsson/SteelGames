@@ -10,20 +10,20 @@ namespace SteelGames.Controllers
     public class HomeController : Controller
     {
         DBConnector connector = DBConnector.getInstance();
+        GameList gameList = GameList.getInstance();
         public ActionResult Index()
         {
-            var model = new GameModel();
-            List<Game> games = connector.getGamesByQuery("SELECT * FROM Game");
-
-            model.Games = games;
-            return View(model);
+            gameList.Clear();
+            gameList.AddRange(connector.getGamesByQuery("SELECT Game.*, SystemRequirements.* " +
+                                                         "FROM Game " +
+                                                         "JOIN SystemRequirements ON " +
+                                                         "Game.SystemRequirementsID = SystemRequirements.SystemRequirementsID;"));
+            return View(gameList);
         }
 
         public ActionResult GameDetails(int gameID)
         {
-            Game game = connector.getGamesByQuery($"SELECT * FROM Game WHERE GameID = {gameID}")[0];
-
-            return View(game);
+            return View(gameList[gameID - 1]);
         }
 
         public ActionResult About()

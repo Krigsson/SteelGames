@@ -166,6 +166,7 @@
     </Compile>
     <Compile Include="Models\DBConnector.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameList.cs" />
     <Compile Include="Models\SystemRequirements.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
