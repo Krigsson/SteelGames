@@ -27,15 +27,13 @@ namespace SteelGames.Models
         {
             if (DBConnector.dbConnector == null)
             {
-
                 DBConnector.dbConnector = new DBConnector();
-
             }
 
             return dbConnector;
         }
 
-        public MySqlCommand query(string querySTR)
+        public MySqlCommand ExecuteQuery(string querySTR)
         {
             MySqlCommand command = new MySqlCommand(querySTR, databaseConnection);
             command.CommandTimeout = 60;
@@ -47,7 +45,7 @@ namespace SteelGames.Models
         {
             List<dynamic> data = new List<dynamic>();
 
-            MySqlCommand command = query(querySTR);
+            MySqlCommand command = ExecuteQuery(querySTR);
             MySqlDataReader reader = command.ExecuteReader();
 
             if (reader.HasRows)
@@ -70,7 +68,7 @@ namespace SteelGames.Models
         {
             List<Game> data = new List<Game>();
 
-            MySqlCommand command = query(query_s);
+            MySqlCommand command = ExecuteQuery(query_s);
             MySqlDataReader reader = command.ExecuteReader();
 
             if (reader.HasRows)
@@ -80,47 +78,26 @@ namespace SteelGames.Models
                     Game game = new Game();
                     game.GameID = int.Parse(reader["GameID"].ToString());
                     game.Name = reader["Name"].ToString();
+                    game.Platform = reader["Platform"].ToString();
                     game.Description = reader["Description"].ToString();
                     game.Price = double.Parse(reader["Price"].ToString());
                     game.CategoryName = reader["CategoryName"].ToString();
                     game.SystemReqID = int.Parse(reader["SystemRequirementsID"].ToString());
+                    game.SysReq = new SystemRequirements();
+                    game.SysReq.SystemReqID = int.Parse(reader["SystemRequirementsID"].ToString());
+                    game.SysReq.OS = reader["OS"].ToString();
+                    game.SysReq.Processor = reader["Processor"].ToString();
+                    game.SysReq.Memory = reader["Memory"].ToString();
+                    game.SysReq.Graphics = reader["Graphics"].ToString();
+                    game.SysReq.DirectX = reader["DirectX"].ToString();
+                    game.SysReq.Storage = reader["Storage"].ToString();
+                    game.SysReq.SoundCard = reader["SoundCard"].ToString();
                     data.Add(game);
                 }
             }
             reader.Close();
 
-            getSystemRequirements(data);
-
             return data;
-        }
-
-        public void getSystemRequirements(List<Game> games)
-        {
-            foreach (Game game in games)
-            {
-                MySqlCommand systemQuery = query($"SELECT * FROM SystemRequirements WHERE " +
-                            $"SystemRequirementsID = {game.SystemReqID}");
-                MySqlDataReader systemReader = systemQuery.ExecuteReader();
-
-                if (systemReader.HasRows)
-                {
-                    while (systemReader.Read())
-                    {
-                        game.SysReq = new SystemRequirements();
-                        game.SysReq.SystemReqID = int.Parse(systemReader["SystemRequirementsID"].ToString());
-                        game.SysReq.OS = systemReader["OS"].ToString();
-                        game.SysReq.Processor = systemReader["Processor"].ToString();
-                        game.SysReq.Memory = systemReader["Memory"].ToString();
-                        game.SysReq.Graphics = systemReader["Graphics"].ToString();
-                        game.SysReq.DirectX = systemReader["DirectX"].ToString();
-                        game.SysReq.Storage = systemReader["Storage"].ToString();
-                        game.SysReq.SoundCard = systemReader["SoundCard"].ToString();
-                    }
-                }
-
-                systemReader.Close();
-            }
-
         }
 
         public void registerNewUser(string email, string password, string phone)
@@ -129,7 +106,7 @@ namespace SteelGames.Models
             DateTime currentDate = DateTime.Now;
             int newUserID = 0;
 
-            MySqlCommand response = query("SELECT MAX(UserID) FROM User");
+            MySqlCommand response = ExecuteQuery("SELECT MAX(UserID) FROM User");
             MySqlDataReader reader = response.ExecuteReader();
 
             if(reader.Read())
