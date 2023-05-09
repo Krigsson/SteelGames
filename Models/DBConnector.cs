@@ -121,6 +121,7 @@ namespace SteelGames.Models
             newUserID++;
 
             reader.Close();
+            password = GeneralUtils.PasswordHasher(password);
 
             string sqlQueryInsertUser = "INSERT INTO User (UserID, Email, Password, PhoneNumber) VALUES " +
                 "(@value1, @value2, @value3, @value4)";
