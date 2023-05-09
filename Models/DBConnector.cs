@@ -1,7 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 
 namespace SteelGames.Models
@@ -82,6 +84,8 @@ namespace SteelGames.Models
                     game.Description = reader["Description"].ToString();
                     game.Price = double.Parse(reader["Price"].ToString());
                     game.CategoryName = reader["CategoryName"].ToString();
+                    game.PreviewImageName = reader["PreviewImageName"].ToString();
+                    game.ImageFolderName = reader["ImageFolderName"].ToString();
                     game.SystemReqID = int.Parse(reader["SystemRequirementsID"].ToString());
                     game.SysReq = new SystemRequirements();
                     game.SysReq.SystemReqID = int.Parse(reader["SystemRequirementsID"].ToString());

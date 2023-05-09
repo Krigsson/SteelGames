@@ -31,7 +31,7 @@
 
     .gameCard img {
         width: 100%;
-        height: 200px;
+        height: 300px;
         object-fit:inherit;
         object-position: center;
         z-index: 1;
