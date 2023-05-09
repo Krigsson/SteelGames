@@ -85,6 +85,7 @@ namespace SteelGames.Models
                     game.Price = double.Parse(reader["Price"].ToString());
                     game.CategoryName = reader["CategoryName"].ToString();
                     game.PreviewImageName = reader["PreviewImageName"].ToString();
+                    game.ImageFolderName = reader["ImageFolderName"].ToString();
                     game.SystemReqID = int.Parse(reader["SystemRequirementsID"].ToString());
                     game.SysReq = new SystemRequirements();
                     game.SysReq.SystemReqID = int.Parse(reader["SystemRequirementsID"].ToString());
