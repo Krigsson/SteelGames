@@ -23,7 +23,10 @@ namespace SteelGames.Controllers
 
         public ActionResult GameDetails(int gameID)
         {
-            return View(gameList[gameID - 1]);
+            DetailedGameModel model = new DetailedGameModel();
+            model.GameDetails = gameList[gameID - 1];
+            model.GetImages();
+            return View(model);
         }
 
         public ActionResult About()
