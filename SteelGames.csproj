@@ -175,6 +175,7 @@
     <Compile Include="Models\GameList.cs" />
     <Compile Include="Models\GeneralUtils.cs" />
     <Compile Include="Models\SystemRequirements.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +222,9 @@
     <Content Include="Views\Home\GameDetails.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ProcessRegistration.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\InvalidLogin.cshtml" />
+    <Content Include="Views\Account\AccountDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

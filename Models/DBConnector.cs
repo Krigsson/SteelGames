@@ -1,10 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Web;
 
 namespace SteelGames.Models
 {
@@ -43,28 +39,28 @@ namespace SteelGames.Models
             return command;
         }
 
-        public List<dynamic> getDBResponseByQuery(string querySTR)
-        {
-            List<dynamic> data = new List<dynamic>();
+        //public List<dynamic> getDBResponseByQuery(string querySTR)
+        //{
+        //    List<dynamic> data = new List<dynamic>();
 
-            MySqlCommand command = ExecuteQuery(querySTR);
-            MySqlDataReader reader = command.ExecuteReader();
+        //    MySqlCommand command = ExecuteQuery(querySTR);
+        //    MySqlDataReader reader = command.ExecuteReader();
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    dynamic row = new System.Dynamic.ExpandoObject();
-                    row.Email = reader["Email"];
-                    row.Password = reader["Password"];
-                    row.PhoneNumber = reader["PhoneNumber"];
-                    data.Add(row);
-                }
-            }
-            reader.Close();
+        //    if (reader.HasRows)
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            dynamic row = new System.Dynamic.ExpandoObject();
+        //            row.Email = reader["Email"];
+        //            row.Password = reader["Password"];
+        //            row.PhoneNumber = reader["PhoneNumber"];
+        //            data.Add(row);
+        //        }
+        //    }
+        //    reader.Close();
 
-            return data;
-        }
+        //    return data;
+        //}
 
         public List<Game> getGamesByQuery(string query_s)
         {
@@ -149,5 +145,34 @@ namespace SteelGames.Models
 
         }
 
+        public bool loginUser(string email, string password)
+        {
+            string query_s = $"SELECT * FROM User WHERE Email = \"{email}\"";
+
+            MySqlCommand command = ExecuteQuery(query_s);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            if(reader.HasRows)
+            {
+                if(reader.Read())
+                {
+                    if(GeneralUtils.VerifyPassword(password, reader["Password"].ToString()))
+                    {
+                        User currentUser = User.getInstance();
+                        currentUser.UserID = int.Parse(reader["UserID"].ToString());
+                        currentUser.Email = email;
+                        currentUser.PhoneNumber = reader["PhoneNumber"].ToString();
+                        currentUser.Administrator = false;
+                        currentUser.Logged = true;
+                        reader.Close();
+                        return true;
+                    }
+                }
+            }
+
+            reader.Close();
+            return false;
+        }
     }
 }

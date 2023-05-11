@@ -18,7 +18,9 @@ namespace SteelGames.Controllers
                                                          "FROM Game " +
                                                          "JOIN SystemRequirements ON " +
                                                          "Game.SystemRequirementsID = SystemRequirements.SystemRequirementsID;"));
-            return View(gameList);
+            ViewData["GameModel"] = gameList;
+            ViewData["UserModel"] = SteelGames.Models.User.getInstance();
+            return View();
         }
 
         public ActionResult GameDetails(int gameID)
@@ -26,7 +28,10 @@ namespace SteelGames.Controllers
             DetailedGameModel model = new DetailedGameModel();
             model.GameDetails = gameList[gameID - 1];
             model.GetImages();
-            return View(model);
+            ViewData["GameModel"] = model;
+            ViewData["UserModel"] = SteelGames.Models.User.getInstance();
+
+            return View();
         }
 
         public ActionResult About()
