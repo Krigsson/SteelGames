@@ -25,5 +25,35 @@ namespace SteelGames.Controllers
             connector.registerNewUser(email, password, phone);
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(FormCollection form)
+        {
+            DBConnector connector = DBConnector.getInstance();
+            string email = form["email"];
+            string password = form["password"];
+            if (connector.loginUser(email, password))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("InvalidLogin", "Account");
+        }
+
+        public ActionResult InvalidLogin()
+        {
+            return View();
+        }
+
+        public ActionResult AccountDetails()
+        {
+            return View();
+        }
     }
 }
