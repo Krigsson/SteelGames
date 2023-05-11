@@ -26,7 +26,7 @@ namespace SteelGames.Models
     {
         public Game GameDetails { get; set; }
         public List<string> Images { get; set; }
-
+        public int AvaliableKeysForCurrentGame { get; set; }
         public void GetImages()
         {
             Images = Directory.GetFiles(GeneralUtils.PathToImages + GameDetails.ImageFolderName + "\\").ToList<string>();
@@ -34,6 +34,12 @@ namespace SteelGames.Models
             {
                 Images[i] = Images[i].Split('\\')[Images[i].Split('\\').Length - 1];
             }
+        }
+
+        public void GetAvaliableKeysCount()
+        {
+            DBConnector connector = DBConnector.getInstance();
+            AvaliableKeysForCurrentGame = connector.getAvailableKeysForCurrentGame(GameDetails.GameID);
         }
     }
 }

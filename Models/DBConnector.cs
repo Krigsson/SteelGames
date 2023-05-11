@@ -7,7 +7,7 @@ namespace SteelGames.Models
     public class DBConnector
     {
         private static DBConnector dbConnector;
-        private MySqlConnection databaseConnection;
+        public MySqlConnection databaseConnection;
         private string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=SteelGamesKey;";
 
         private DBConnector()
@@ -173,6 +173,22 @@ namespace SteelGames.Models
 
             reader.Close();
             return false;
+        }
+
+        public int getAvailableKeysForCurrentGame(int gameID)
+        {
+            string query_s = $"SELECT COUNT(*) AS key_count FROM keys_t WHERE GameID = \"{gameID}\"";
+            int result = 0;
+            MySqlCommand command = ExecuteQuery(query_s);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            if(reader.Read())
+            {
+                result = int.Parse(reader["key_count"].ToString());
+            }
+
+            reader.Close();
+            return result;
         }
     }
 }

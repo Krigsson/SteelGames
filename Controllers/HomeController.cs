@@ -28,6 +28,7 @@ namespace SteelGames.Controllers
             DetailedGameModel model = new DetailedGameModel();
             model.GameDetails = gameList[gameID - 1];
             model.GetImages();
+            model.GetAvaliableKeysCount();
             ViewData["GameModel"] = model;
             ViewData["UserModel"] = SteelGames.Models.User.getInstance();
 
