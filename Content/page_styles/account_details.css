@@ -1,0 +1,46 @@
+﻿body {
+    background-color: #1d1f21;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #00aeef;
+    text-align: center;
+    margin-top: 0;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #808080;
+}
+
+.game-name {
+    font-weight: bold;
+}
+
+.game-platform {
+    color: #808080;
+}
+
+.game-key {
+    color: #b294bb;
+}
