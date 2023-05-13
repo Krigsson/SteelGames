@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="registration-form">
-        <h2>Registration</h2>
+        <h2>Login</h2>
         <form>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -30,7 +30,6 @@
 
 <script>
     $(function () {
-    // Capture click event on link with id "registerLink"
     $("#loginLink").click(function () {
 
         var email = $("#email").val();
@@ -38,14 +37,12 @@
 
         var form = $("<form>").attr({
             method: "post",
-            action: "@Url.Action("Login", "Account")" // Replace with your action and controller names
+            action: "@Url.Action("Login", "Account")"
                 });
 
-        // Append any form data as needed
         form.append($("<input>").attr({ type: "hidden", name: "email", value: email }));
         form.append($("<input>").attr({ type: "hidden", name: "password", value: password }));
 
-        // Append form to document and submit it
         $("body").append(form);
         form.submit();
     });

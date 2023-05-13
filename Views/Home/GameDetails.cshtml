@@ -63,7 +63,7 @@
             <p class="gameDetailsDescription">@Model.GameDetails.Description</p>
             <p class="gameDetailsPrice">Price: @Model.GameDetails.Price UAH</p>
             <p class="gameDetailsPrice">Keys left: @Model.AvaliableKeysForCurrentGame</p>
-            <a href="#" class="gameDetailsBuyButton">Buy Now</a>
+            <a href="#" class="gameDetailsBuyButton" onclick="buyGame(@Model.GameDetails.GameID)">Buy Now</a>
         </div>
     </div>
     <hr />
@@ -95,5 +95,18 @@
             $('#gameCarousel').carousel();
         });
     </script>
+
+
+    <form id="buyForm" method="post">
+        <input type="hidden" id="gameID" name="gameID"/>
+    </form>
+
+    <script>
+        function buyGame(gameID) {
+            document.getElementById("gameID").value = gameID;
+            document.getElementById("buyForm").submit();
+        }
+    </script>
     </body>
+
 </html>
