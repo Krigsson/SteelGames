@@ -4,7 +4,7 @@
     font-family: Arial, sans-serif;
 }
 
-.container {
+.container-account-details {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -31,16 +31,19 @@ td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #808080;
+    border-right: 1px solid #808080;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
 }
 
-.game-name {
+.game-name-account-details {
     font-weight: bold;
 }
 
-.game-platform {
+.game-platform-account-details {
     color: #808080;
 }
 
-.game-key {
+.game-key-account-details {
     color: #b294bb;
 }

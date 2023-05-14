@@ -53,6 +53,11 @@ namespace SteelGames.Controllers
 
         public ActionResult AccountDetails()
         {
+            GameKeyModel keyModel = GameKeyModel.getInstance();
+            User currentUser = SteelGames.Models.User.getInstance();
+            keyModel.getKeys(currentUser.UserID);
+            ViewData["UserModel"] = currentUser;
+            ViewData["GameKeyModel"] = keyModel.keys;
             return View();
         }
     }

@@ -1,7 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "AccountDetails";
-    Layout = null;
+    var userModel = ViewData["UserModel"] as SteelGames.Models.User;
+    var keyModel = ViewData["GameKeyModel"] as List<SteelGames.Models.GameKeyModel.KeyStruct>;
 }
 
 <head>
@@ -9,12 +10,10 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Account Overview</h1>
-
+    <div class="container-account-details">
         <h2>User Information</h2>
-        <p><strong>Email:</strong> user@example.com</p>
-        <p><strong>Phone:</strong> 123-456-7890</p>
+        <p><strong>Email:</strong> @userModel.Email</p>
+        <p><strong>Phone:</strong> @userModel.PhoneNumber</p>
 
         <h2>Owned Games</h2>
         <table>
@@ -23,21 +22,18 @@
                 <th>Platform</th>
                 <th>Key</th>
             </tr>
-            <tr>
-                <td class="game-name">Game 1</td>
-                <td class="game-platform">(PC)</td>
-                <td class="game-key">ABC123</td>
-            </tr>
-            <tr>
-                <td class="game-name">Game 2</td>
-                <td class="game-platform">(PS4)</td>
-                <td class="game-key">DEF456</td>
-            </tr>
-            <tr>
-                <td class="game-name">Game 3</td>
-                <td class="game-platform">(Xbox One)</td>
-                <td class="game-key">GHI789</td>
-            </tr>
+            @foreach (var row in keyModel)
+            {
+                <tr>
+                    <td class="game-name-account-details">
+                        <a href="@Url.Action("GameDetails", "Home", new { gameID = row.GameID })">
+                            @row.GameName
+                            </a>
+                    </td>
+                    <td class="game-platform-account-details">@row.Platform</td>
+                    <td class="game-key-account-details">@row.Key</td>
+                </tr>
+            }
         </table>
     </div>
 
