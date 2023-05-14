@@ -16,10 +16,10 @@
             <li data-target="#gameCarousel" data-slide-to="0" class="active"></li>
             @{
                 var counter = 1;
-                while(counter < Model.Images.Count)
+                while (counter < Model.Images.Count)
                 {
-                 <li data-target="#gameCarousel" data-slide-to="@counter"></li>
-                 counter++;
+                    <li data-target="#gameCarousel" data-slide-to="@counter"></li>
+                    counter++;
                 }
             }
         </ol>
@@ -63,7 +63,14 @@
             <p class="gameDetailsDescription">@Model.GameDetails.Description</p>
             <p class="gameDetailsPrice">Price: @Model.GameDetails.Price UAH</p>
             <p class="gameDetailsPrice">Keys left: @Model.AvaliableKeysForCurrentGame</p>
-            <a href="#" class="gameDetailsBuyButton">Buy Now</a>
+            @if (Model.AvaliableKeysForCurrentGame > 0)
+            {
+                <a href="#" class="gameDetailsBuyButton" onclick="buyGame(@Model.GameDetails.GameID)">Buy Now</a>
+            }
+            else
+            {
+                <a href="#" class="gameDetailsBuyButton">Out of stock</a>
+            }
         </div>
     </div>
     <hr />
@@ -95,5 +102,18 @@
             $('#gameCarousel').carousel();
         });
     </script>
-    </body>
+
+
+    <form id="buyForm" method="post">
+        <input type="hidden" id="gameID" name="gameID" />
+    </form>
+
+    <script>
+        function buyGame(gameID) {
+            document.getElementById("gameID").value = gameID;
+            document.getElementById("buyForm").submit();
+        }
+    </script>
+</body>
+
 </html>

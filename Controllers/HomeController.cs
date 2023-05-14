@@ -22,7 +22,8 @@ namespace SteelGames.Controllers
             ViewData["UserModel"] = SteelGames.Models.User.getInstance();
             return View();
         }
-
+        
+        [HttpGet]
         public ActionResult GameDetails(int gameID)
         {
             DetailedGameModel model = new DetailedGameModel();
@@ -33,6 +34,18 @@ namespace SteelGames.Controllers
             ViewData["UserModel"] = SteelGames.Models.User.getInstance();
 
             return View();
+        }
+        [HttpPost]
+        public ActionResult GameDetails(FormCollection form)
+        {
+            if(!SteelGames.Models.User.getInstance().Logged)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            int gameID = int.Parse(form["gameID"]);
+            HttpContext.Session.Clear();
+            HttpContext.Session.Add("CurrentGame", gameList[gameID - 1]);
+            return RedirectToAction("BuyGame", "Purchase");
         }
 
         public ActionResult About()

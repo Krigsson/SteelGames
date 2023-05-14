@@ -39,29 +39,6 @@ namespace SteelGames.Models
             return command;
         }
 
-        //public List<dynamic> getDBResponseByQuery(string querySTR)
-        //{
-        //    List<dynamic> data = new List<dynamic>();
-
-        //    MySqlCommand command = ExecuteQuery(querySTR);
-        //    MySqlDataReader reader = command.ExecuteReader();
-
-        //    if (reader.HasRows)
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            dynamic row = new System.Dynamic.ExpandoObject();
-        //            row.Email = reader["Email"];
-        //            row.Password = reader["Password"];
-        //            row.PhoneNumber = reader["PhoneNumber"];
-        //            data.Add(row);
-        //        }
-        //    }
-        //    reader.Close();
-
-        //    return data;
-        //}
-
         public List<Game> getGamesByQuery(string query_s)
         {
             List<Game> data = new List<Game>();
@@ -177,7 +154,9 @@ namespace SteelGames.Models
 
         public int getAvailableKeysForCurrentGame(int gameID)
         {
-            string query_s = $"SELECT COUNT(*) AS key_count FROM keys_t WHERE GameID = \"{gameID}\"";
+            string query_s = $"SELECT COUNT(*) as key_count FROM keys_t k " +
+                $"LEFT JOIN Purchase p ON k.KeyID = p.KeyID " +
+                $"WHERE p.KeyID IS NULL AND k.GameID = {gameID};";
             int result = 0;
             MySqlCommand command = ExecuteQuery(query_s);
             MySqlDataReader reader = command.ExecuteReader();
