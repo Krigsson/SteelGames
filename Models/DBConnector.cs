@@ -7,7 +7,7 @@ namespace SteelGames.Models
     public class DBConnector
     {
         private static DBConnector dbConnector;
-        private MySqlConnection databaseConnection;
+        public MySqlConnection databaseConnection;
         private string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=SteelGamesKey;";
 
         private DBConnector()
@@ -38,29 +38,6 @@ namespace SteelGames.Models
 
             return command;
         }
-
-        //public List<dynamic> getDBResponseByQuery(string querySTR)
-        //{
-        //    List<dynamic> data = new List<dynamic>();
-
-        //    MySqlCommand command = ExecuteQuery(querySTR);
-        //    MySqlDataReader reader = command.ExecuteReader();
-
-        //    if (reader.HasRows)
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            dynamic row = new System.Dynamic.ExpandoObject();
-        //            row.Email = reader["Email"];
-        //            row.Password = reader["Password"];
-        //            row.PhoneNumber = reader["PhoneNumber"];
-        //            data.Add(row);
-        //        }
-        //    }
-        //    reader.Close();
-
-        //    return data;
-        //}
 
         public List<Game> getGamesByQuery(string query_s)
         {
@@ -173,6 +150,24 @@ namespace SteelGames.Models
 
             reader.Close();
             return false;
+        }
+
+        public int getAvailableKeysForCurrentGame(int gameID)
+        {
+            string query_s = $"SELECT COUNT(*) as key_count FROM keys_t k " +
+                $"LEFT JOIN Purchase p ON k.KeyID = p.KeyID " +
+                $"WHERE p.KeyID IS NULL AND k.GameID = {gameID};";
+            int result = 0;
+            MySqlCommand command = ExecuteQuery(query_s);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            if(reader.Read())
+            {
+                result = int.Parse(reader["key_count"].ToString());
+            }
+
+            reader.Close();
+            return result;
         }
     }
 }

@@ -1,0 +1,79 @@
+﻿body {
+    background-color: #1f1f1f;
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+.purchaseContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.purchase_left-section {
+    flex-basis: 50%;
+    padding: 20px;
+}
+
+.purchase_right-section {
+    flex-basis: 50%;
+    padding: 20px;
+    border-left: 1px solid #555;
+}
+
+.purchase_input-group {
+    margin-bottom: 15px;
+}
+
+.purchase_label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.purchase_input-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+}
+
+.purchase_game-details {
+    text-align: center;
+}
+
+.purchase_game-image {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+}
+
+.purchase_game-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.purchase_game-platform {
+    margin-bottom: 5px;
+}
+
+.purchase_game-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.purchase_button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    background-color: #0068B3;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+}

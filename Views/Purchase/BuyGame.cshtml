@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "BuyGame";
+    var gameModel = ViewData["GameModel"] as SteelGames.Models.Game;
+}
+
+<head>
+    <link href="~/Content/page_styles/purchase_page.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <input type="hidden" id="gameID" value="@gameModel.GameID"/>
+    <input type="hidden" id="gamePrice" value="@gameModel.Price" />
+    <div class="purchaseContainer">
+        <div class="purchase_left-section">
+            <h2>Payment Details</h2>
+            <div class="purchase_input-group">
+                <label for="cardNumber">Credit Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="Enter your card number">
+            </div>
+            <div class="purchase_input-group">
+                <label for="expirationDate">Expiration Date:</label>
+                <input type="text" id="expirationDate" name="expirationDate" placeholder="MM/YY">
+            </div>
+            <div class="purchase_input-group">
+                <label for="cvvCode">CVV Code:</label>
+                <input type="text" id="cvvCode" name="cvvCode" placeholder="Enter CVV code">
+            </div>
+            <a class="purchase_button" href="#" id="buyLink">Confirm Payment</a>
+        </div>
+        <div class="purchase_right-section">
+            <div class="purchase_game-details">
+                <img class="purchase_game-image" src="~/source/images/preview/@gameModel.PreviewImageName" alt="@gameModel.PreviewImageName">
+                <div class="purchase_game-name">@gameModel.Name</div>
+                <div class="purchase_game-platform">Platform: @gameModel.Platform</div>
+                <div class="purchase_game-price">Price: @gameModel.Price UAH</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    $(function () {
+        $("#buyLink").click(function () {
+
+            var cardNumber = $("#cardNumber").val();
+            var price = $("#gamePrice").val();
+            var gameID = $("#gameID").val();
+
+        var form = $("<form>").attr({
+            method: "post",
+            action: "@Url.Action("BuyGame", "Purchase")"
+                });
+
+            form.append($("<input>").attr({ type: "hidden", name: "cardNumber", value: cardNumber }));
+            form.append($("<input>").attr({ type: "hidden", name: "gamePrice", value: price }));
+            form.append($("<input>").attr({ type: "hidden", name: "gameID", value: gameID }));
+            
+
+        $("body").append(form);
+        form.submit();
+    });
+});
+    </script>
+</body>
