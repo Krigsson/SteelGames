@@ -27,6 +27,15 @@ namespace SteelGames.Models
             return instance;
         }
 
+        public void Logout()
+        {
+            Logged = false;
+            UserID = 0;
+            Email = "";
+            PhoneNumber = "";
+            Administrator = false;
+        }
+
     }
 
     public class Client : User

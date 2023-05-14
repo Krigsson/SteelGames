@@ -1,0 +1,49 @@
+﻿body {
+    background-color: #1d1f21;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.container-account-details {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #00aeef;
+    text-align: center;
+    margin-top: 0;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #808080;
+    border-right: 1px solid #808080;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+}
+
+.game-name-account-details {
+    font-weight: bold;
+}
+
+.game-platform-account-details {
+    color: #808080;
+}
+
+.game-key-account-details {
+    color: #b294bb;
+}
