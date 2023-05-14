@@ -60,5 +60,12 @@ namespace SteelGames.Controllers
             ViewData["GameKeyModel"] = keyModel.keys;
             return View();
         }
+
+        public ActionResult Logout()
+        {
+            User currentUser = SteelGames.Models.User.getInstance();
+            currentUser.Logout();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
