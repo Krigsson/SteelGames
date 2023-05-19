@@ -7,6 +7,7 @@ namespace SteelGames.Models
     public static class GeneralUtils
     {
         public static string PathToImages = "C:\\Users\\sausm\\source\\repos\\SteelGames\\source\\images\\games\\";
+        public static string ReportRepository = "C:\\khpi\\3 course\\appz2\\ReportRepo";
 
         public static string PasswordHasher(string password)
         {
