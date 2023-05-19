@@ -7,6 +7,7 @@
 
 <head>
     <link href="~/Content/page_styles/account_details.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -16,6 +17,7 @@
         <p><strong>Phone:</strong> @userModel.PhoneNumber</p>
 
         <h2>Owned Games</h2>
+        @Html.ActionLink("Save games to excel", "SaveGamesReportXls", "ReportSaver")
         <table>
             <tr>
                 <th>Game</th>
@@ -28,7 +30,7 @@
                     <td class="game-name-account-details">
                         <a href="@Url.Action("GameDetails", "Home", new { gameID = row.GameID })">
                             @row.GameName
-                            </a>
+                        </a>
                     </td>
                     <td class="game-platform-account-details">@row.Platform</td>
                     <td class="game-key-account-details">@row.Key</td>
