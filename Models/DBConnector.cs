@@ -209,5 +209,25 @@ namespace SteelGames.Models
 
             GameList.UpdateGames();
         }
+
+        public void AddKeysToGame(int gameID, string keys)
+        {
+            string[] listKeys = keys.Split('\n');
+            string addKeyToGameQuery = "INSERT INTO keys_t (KeyValue, GameID) VALUES " +
+                "(@value1, @value2)";
+
+            foreach (string key in listKeys)
+            {
+
+                using (MySqlCommand command = new MySqlCommand(addKeyToGameQuery, databaseConnection))
+                {
+                    command.Parameters.AddWithValue("@value1", key);
+                    command.Parameters.AddWithValue("@value2", gameID);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+
+        }
     }
 }

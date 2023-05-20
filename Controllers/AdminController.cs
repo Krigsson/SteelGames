@@ -31,7 +31,6 @@ namespace SteelGames.Controllers
             var price = double.Parse(Request.Form["Price"]);
             var categoryName = Request.Form["Category"];
             var platform = Request.Form["Platform"];
-            //var previewImageFolder = Request.Form["PreviewImage"];
             var imageFolder = Request.Form["ImageFolder"];
             var previewImageFile = Request.Files["singleImage"];
             var OS = Request.Form["OS"];
@@ -79,6 +78,23 @@ namespace SteelGames.Controllers
             DBConnector.getInstance().AddNewGameToDB(newGame);
 
             return RedirectToAction("MainAdminPanel", "Admin");
+        }
+
+        [HttpGet]
+        public ActionResult AddKeysToGame(int gameID)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddKeysToGame()
+        {
+            int gameID = int.Parse(Request.Form["gameID"]);
+            string keys = Request.Form["keyInput"];
+
+            DBConnector.getInstance().AddKeysToGame(gameID, keys);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

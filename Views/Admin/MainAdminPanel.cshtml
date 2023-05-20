@@ -81,7 +81,11 @@
                     <td>@row.Platform</td>
                     <td>@row.Price UAH</td>
                     <td>
-                        <button>Add Keys</button>
+                        <button>
+                            <a href="@Url.Action("AddKeysToGame", "Admin", new {gameID = row.GameID})">
+                                Add keys
+                            </a>
+                        </button>
                         <button>Edit</button>
                         <button>Delete</button>
                     </td>
