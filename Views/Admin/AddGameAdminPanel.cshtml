@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "AddGameAdminPanel";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<head>
+    <title>Add Game</title>
+    <style>
+        /* Battle.net style */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #323232;
+            color: #fff;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            background-color: #454545;
+            color: #fff;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            background-color: #454545;
+            color: #fff;
+        }
+
+        .image-selector {
+            margin-bottom: 10px;
+        }
+
+            .image-selector label {
+                display: inline-block;
+                margin-right: 10px;
+            }
+
+        .button-container {
+            text-align: center;
+        }
+
+        button {
+            background-color: #4b4b4b;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #5b5b5b;
+            }
+    </style>
+</head>
+<body>
+    <h1>Add Game</h1>
+
+    <div class="form-container">
+        @using (Html.BeginForm("AddGame", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <label for="gameName">Game Name</label>
+            <input type="text" id="gameName" name="gameName" placeholder="Enter the game name" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Enter the game description" required></textarea>
+
+            <label for="price">Price</label>
+            <input type="text" id="price" name="price" placeholder="Enter the game price" required>
+
+            <label for="category">Category Name</label>
+            <input type="text" id="category" name="category" placeholder="Enter the game category name" required>
+
+            <label for="platform">Platform</label>
+            <input type="text" id="platform" name="platform" placeholder="Enter platform" required>
+
+            @*<label for="previewImage">Preview Image name</label>
+            <input type="text" id="previewImage" name="previewImage" placeholder="Enter the preview image URL" required>*@
+
+            <label for="imageFolder">Image Folder Name</label>
+            <input type="text" id="imageFolder" name="imageFolder" placeholder="Enter the image folder name" required>
+
+            <div class="image-selector">
+                <label for="singleImage">Select Preview Image</label>
+                <input type="file" id="singleImage" name="singleImage" accept=".jpg, .jpeg, .png" required>
+            </div>
+
+            <div class="image-selector">
+                <label for="multipleImages">Select Game Images</label>
+                <input type="file" id="multipleImages" name="multipleImages" accept=".jpg, .jpeg, .png" multiple required>
+            </div>
+
+            <hr />
+
+            <label for="OS">OS</label>
+            <input type="text" id="OS" name="OS" placeholder="Enter OS" required>
+
+            <label for="processor">Processor</label>
+            <input type="text" id="processor" name="processor" placeholder="Enter Processor" required>
+
+            <label for="memory">Memory</label>
+            <input type="text" id="memory" name="memory" placeholder="Enter memory" required>
+
+            <label for="graphics">Graphics</label>
+            <input type="text" id="graphics" name="graphics" placeholder="Enter Graphics" required>
+
+            <label for="directX">DirectX</label>
+            <input type="text" id="directX" name="directX" placeholder="Enter DirectX">
+
+            <label for="storage">Storage</label>
+            <input type="text" id="storage" name="storage" placeholder="Enter Storage" required>
+
+            <label for="soundcard">SoundCard</label>
+            <input type="text" id="soundcard" name="soundcard" placeholder="Enter Soundcard">
+
+            <div class="button-container">
+                <button type="submit">Add Game</button>
+            </div>
+        }
+    </div>
+
+</body>

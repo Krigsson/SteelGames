@@ -169,5 +169,45 @@ namespace SteelGames.Models
             reader.Close();
             return result;
         }
+
+        public void AddNewGameToDB(Game newGame)
+        {
+            string addGameQuery = "INSERT INTO Game (Name, Description, Price, CategoryName, " +
+                "SystemRequirementsID, Platform, PreviewImageName, ImageFolderName) VALUES " +
+                "(@value1, @value2, @value3, @value4, @value5, @value6, @value7, @value8)";
+            string addSystemReqQuery = "INSERT INTO SystemRequirements (OS, Processor, Memory, " +
+                "Graphics, DirectX, Storage, SoundCard) VALUES " +
+                "(@value1, @value2, @value3, @value4, @value5, @value6, @value7)";
+
+            using (MySqlCommand command = new MySqlCommand(addSystemReqQuery, databaseConnection))
+            {
+                command.Parameters.AddWithValue("@value1", newGame.SysReq.OS);
+                command.Parameters.AddWithValue("@value2", newGame.SysReq.Processor);
+                command.Parameters.AddWithValue("@value3", newGame.SysReq.Memory);
+                command.Parameters.AddWithValue("@value4", newGame.SysReq.Graphics);
+                command.Parameters.AddWithValue("@value5", newGame.SysReq.DirectX);
+                command.Parameters.AddWithValue("@value6", newGame.SysReq.Storage);
+                command.Parameters.AddWithValue("@value7", newGame.SysReq.SoundCard);
+
+                command.ExecuteNonQuery();
+            }
+
+            using (MySqlCommand command = new MySqlCommand(addGameQuery, databaseConnection))
+            {
+                command.Parameters.AddWithValue("@value1", newGame.Name);
+                command.Parameters.AddWithValue("@value2", newGame.Description);
+                command.Parameters.AddWithValue("@value3", newGame.Price);
+                command.Parameters.AddWithValue("@value4", newGame.CategoryName);
+                command.Parameters.AddWithValue("@value5", GameList.getInstance()[GameList.getInstance().Count - 1].SystemReqID + 1);
+                command.Parameters.AddWithValue("@value6", newGame.Platform);
+                command.Parameters.AddWithValue("@value7", newGame.PreviewImageName);
+                command.Parameters.AddWithValue("@value8", newGame.ImageFolderName);
+
+                command.ExecuteNonQuery();
+            }
+
+
+            GameList.UpdateGames();
+        }
     }
 }

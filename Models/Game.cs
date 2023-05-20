@@ -19,8 +19,22 @@ namespace SteelGames.Models
         public string PreviewImageName { get; set; }
         public string ImageFolderName { get; set; }
         public int SystemReqID { get; set; }
-
         public SystemRequirements SysReq { get; set; }
+
+        public Game() { }
+        public Game(string name, string platform, string description, double price, string categoryName,
+                    string previewImageFolder, string imageFolderName, int systemReqID, SystemRequirements sysreq)
+        {
+            Name = name;
+            Platform = platform;
+            Description = description;
+            Price = price;
+            CategoryName = categoryName;
+            PreviewImageName = previewImageFolder;
+            ImageFolderName = imageFolderName;
+            SystemReqID = systemReqID;
+            SysReq = sysreq;
+        }
     }
 
     public class DetailedGameModel
