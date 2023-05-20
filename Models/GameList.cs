@@ -12,7 +12,7 @@ namespace SteelGames.Models
 
         public static GameList getInstance()
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new GameList();
             }
@@ -20,5 +20,18 @@ namespace SteelGames.Models
             return instance;
         }
 
+        public static void UpdateGames()
+        {
+            if (instance != null)
+            {
+
+                instance.Clear();
+                instance.AddRange(DBConnector.getInstance().
+                                    getGamesByQuery("SELECT Game.*, SystemRequirements.* " +
+                                    "FROM Game " +
+                                    "JOIN SystemRequirements ON " +
+                                    "Game.SystemRequirementsID = SystemRequirements.SystemRequirementsID;"));
+            }
+        }
     }
 }

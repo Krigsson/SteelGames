@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "MainAdminPanel";
+    var gameModel = ViewData["GameModel"] as SteelGames.Models.GameList;
+}
+
+<head>
+    <title>Game Catalog</title>
+    <style>
+        /* Battle.net style */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #323232;
+            color: #fff;
+            padding: 50px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #373737;
+            border-bottom: 2px solid #666;
+        }
+
+        tr:nth-child(even) {
+            background-color: #454545;
+        }
+
+        tr:hover {
+            background-color: #555;
+        }
+
+        button {
+            background-color: #4b4b4b;
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #5b5b5b;
+            }
+    </style>
+</head>
+<body>
+    <h1>Game Catalog</h1>
+
+    @Html.ActionLink("Add new game", "AddGameAdminPanel", "Admin")
+
+    <table>
+        <thead>
+            <tr>
+                <th>Game ID</th>
+                <th>Game Name</th>
+                <th>Game Platform</th>
+                <th>Game Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in gameModel)
+            {
+                <tr>
+                    <td>@row.GameID</td>
+                    <td>
+                        <a href="@Url.Action("GameDetails", "Home", new { gameID = row.GameID })">
+                            @row.Name
+                        </a>
+                    </td>
+                    <td>@row.Platform</td>
+                    <td>@row.Price UAH</td>
+                    <td>
+                        <button>Add Keys</button>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

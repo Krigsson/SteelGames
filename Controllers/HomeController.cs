@@ -13,11 +13,6 @@ namespace SteelGames.Controllers
         GameList gameList = GameList.getInstance();
         public ActionResult Index()
         {
-            gameList.Clear();
-            gameList.AddRange(connector.getGamesByQuery("SELECT Game.*, SystemRequirements.* " +
-                                                         "FROM Game " +
-                                                         "JOIN SystemRequirements ON " +
-                                                         "Game.SystemRequirementsID = SystemRequirements.SystemRequirementsID;"));
             ViewData["GameModel"] = gameList;
             ViewData["UserModel"] = SteelGames.Models.User.getInstance();
             return View();
