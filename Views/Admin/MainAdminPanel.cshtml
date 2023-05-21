@@ -57,7 +57,7 @@
     <h1>Game Catalog</h1>
 
     @Html.ActionLink("Add new game", "AddGameAdminPanel", "Admin")
-
+    @Html.ActionLink("Save price list to excel", "SaveAdminPriceListXls", "ReportSaver")
     <table>
         <thead>
             <tr>
@@ -71,31 +71,31 @@
         <tbody>
             @foreach (var row in gameModel)
             {
-                <tr>
-                    <td>@row.GameID</td>
-                    <td>
-                        <a href="@Url.Action("GameDetails", "Home", new { gameID = row.GameID })">
-                            @row.Name
+            <tr>
+                <td>@row.GameID</td>
+                <td>
+                    <a href="@Url.Action("GameDetails", "Home", new { gameID = row.GameID })">
+                        @row.Name
+                    </a>
+                </td>
+                <td>@row.Platform</td>
+                <td>@row.Price UAH</td>
+                <td>
+                    <button>
+                        <a href="@Url.Action("AddKeysToGame", "Admin", new {gameID = row.GameID})">
+                            Add keys
                         </a>
-                    </td>
-                    <td>@row.Platform</td>
-                    <td>@row.Price UAH</td>
-                    <td>
-                        <button>
-                            <a href="@Url.Action("AddKeysToGame", "Admin", new {gameID = row.GameID})">
-                                Add keys
-                            </a>
-                        </button>
-                        <button>
-                            <a href="@Url.Action("EditGameAdminPanel", "Admin", new {gameID = row.GameID})">
-                                Edit
-                            </a>
-                        </button>
-                        <button>
-                            Delete
-                        </button>
-                    </td>
-                </tr>
+                    </button>
+                    <button>
+                        <a href="@Url.Action("EditGameAdminPanel", "Admin", new {gameID = row.GameID})">
+                            Edit
+                        </a>
+                    </button>
+                    <button>
+                        Delete
+                    </button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
