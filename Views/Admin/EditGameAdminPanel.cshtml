@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "AddGameAdminPanel";
+    ViewBag.Title = "EditGameAdminPanel";
     Layout = null;
 }
 
@@ -71,64 +71,66 @@
     </style>
 </head>
 <body>
-    <h1>Add Game</h1>
+    <h1>Edit game: @Model.Name</h1>
 
     <div class="form-container">
-        @using (Html.BeginForm("AddGame", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("ApplyEditedGame", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <label for="gameName">Game Name</label>
-            <input type="text" id="gameName" name="gameName" placeholder="Enter the game name" required>
+            <input type="text" id="gameName" name="gameName" placeholder="Enter the game name" value="@Model.Name">
 
             <label for="description">Description</label>
-            <textarea id="description" name="description" placeholder="Enter the game description" required></textarea>
+            <textarea id="description" name="description" placeholder="Enter the game description">@Model.Description</textarea>
 
             <label for="price">Price</label>
-            <input type="text" id="price" name="price" placeholder="Enter the game price" required>
+            <input type="text" id="price" name="price" placeholder="Enter the game price" value="@Model.Price">
 
             <label for="category">Category Name</label>
-            <input type="text" id="category" name="category" placeholder="Enter the game category name" required>
+            <input type="text" id="category" name="category" placeholder="Enter the game category name" value="@Model.CategoryName">
 
             <label for="platform">Platform</label>
-            <input type="text" id="platform" name="platform" placeholder="Enter platform" required>
+            <input type="text" id="platform" name="platform" placeholder="Enter platform" value="@Model.Platform">
 
             <label for="imageFolder">Image Folder Name</label>
-            <input type="text" id="imageFolder" name="imageFolder" placeholder="Enter the image folder name" required>
+            <input type="text" id="imageFolder" name="imageFolder" placeholder="Enter the image folder name"
+                   value="@Model.ImageFolderName">
 
             <div class="image-selector">
-                <label for="singleImage">Select Preview Image</label>
-                <input type="file" id="singleImage" name="singleImage" accept=".jpg, .jpeg, .png" required>
+                <label for="singleImage">Select new preview image</label>
+                <input type="file" id="singleImage" name="singleImage" accept=".jpg, .jpeg, .png">
             </div>
 
             <div class="image-selector">
-                <label for="multipleImages">Select Game Images</label>
-                <input type="file" id="multipleImages" name="multipleImages" accept=".jpg, .jpeg, .png" multiple required>
+                <label for="multipleImages">Add new images to game</label>
+                <input type="file" id="multipleImages" name="multipleImages" accept=".jpg, .jpeg, .png" multiple>
             </div>
 
             <hr />
 
             <label for="OS">OS</label>
-            <input type="text" id="OS" name="OS" placeholder="Enter OS" required>
+            <input type="text" id="OS" name="OS" placeholder="Enter OS" value="@Model.SysReq.OS">
 
             <label for="processor">Processor</label>
-            <input type="text" id="processor" name="processor" placeholder="Enter Processor" required>
+            <input type="text" id="processor" name="processor" placeholder="Enter Processor" value="@Model.SysReq.Processor">
 
             <label for="memory">Memory</label>
-            <input type="text" id="memory" name="memory" placeholder="Enter memory" required>
+            <input type="text" id="memory" name="memory" placeholder="Enter memory" value="@Model.SysReq.Memory">
 
             <label for="graphics">Graphics</label>
-            <input type="text" id="graphics" name="graphics" placeholder="Enter Graphics" required>
+            <input type="text" id="graphics" name="graphics" placeholder="Enter Graphics" value="@Model.SysReq.Graphics">
 
             <label for="directX">DirectX</label>
-            <input type="text" id="directX" name="directX" placeholder="Enter DirectX">
+            <input type="text" id="directX" name="directX" placeholder="Enter DirectX" value="@Model.SysReq.DirectX">
 
             <label for="storage">Storage</label>
-            <input type="text" id="storage" name="storage" placeholder="Enter Storage" required>
+            <input type="text" id="storage" name="storage" placeholder="Enter Storage" value="@Model.SysReq.Storage">
 
             <label for="soundcard">SoundCard</label>
-            <input type="text" id="soundcard" name="soundcard" placeholder="Enter Soundcard">
+            <input type="text" id="soundcard" name="soundcard" placeholder="Enter Soundcard" value="@Model.SysReq.SoundCard">
 
+            <input type="hidden" name="gameID" value="@Request.QueryString["gameID"]" />
             <div class="button-container">
-                <button type="submit">Add Game</button>
+                <button type="submit">Edit</button>
             </div>
         }
     </div>

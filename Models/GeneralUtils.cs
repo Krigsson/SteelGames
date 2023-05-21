@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
@@ -48,6 +49,14 @@ namespace SteelGames.Models
 
             // Compare the stored hashed password with the newly computed hash
             return storedHashedPassword.Equals(hashedPasswordToVerify);
+        }
+
+        public static void DeleteOldPreview(string pathToFile)
+        {
+            if(File.Exists(pathToFile))
+            {
+                File.Delete(pathToFile);
+            }
         }
     }
 }

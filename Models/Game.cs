@@ -35,6 +35,19 @@ namespace SteelGames.Models
             SystemReqID = systemReqID;
             SysReq = sysreq;
         }
+
+        public Game(string name, string platform, string description, double price, string categoryName,
+                     string imageFolderName, int systemReqID, SystemRequirements sysreq)
+        {
+            Name = name;
+            Platform = platform;
+            Description = description;
+            Price = price;
+            CategoryName = categoryName;
+            ImageFolderName = imageFolderName;
+            SystemReqID = systemReqID;
+            SysReq = sysreq;
+        }
     }
 
     public class DetailedGameModel

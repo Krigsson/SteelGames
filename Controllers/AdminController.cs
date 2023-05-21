@@ -96,5 +96,83 @@ namespace SteelGames.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public ActionResult EditGameAdminPanel(int gameID)
+        {
+            Game model = SteelGames.Models.GameList.getInstance()[gameID - 1];
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ApplyEditedGame()
+        {
+            int gameID = int.Parse(Request.Form["gameID"]);
+            string gameName = Request.Form["GameName"];
+            string description = Request.Form["Description"];
+            var price = double.Parse(Request.Form["Price"]);
+            string categoryName = Request.Form["Category"];
+            string platform = Request.Form["Platform"];
+            string imageFolder = Request.Form["ImageFolder"];
+            var previewImageFile = Request.Files["singleImage"];
+            string OS = Request.Form["OS"];
+            string processor = Request.Form["Processor"];
+            string memory = Request.Form["Memory"];
+            string graphics = Request.Form["Graphics"];
+            string directX = Request.Form["DirectX"];
+            string storage = Request.Form["Storage"];
+            string soundCard = Request.Form["SoundCard"];
+            bool newPreview = false;
+
+            if (previewImageFile != null && previewImageFile.ContentLength > 0)
+            {
+                var previewImageFileFileName = Path.GetFileName(previewImageFile.FileName);
+                var previewImageFileFilePath = Path.Combine(Server.MapPath("~/source/images/preview"), previewImageFileFileName);
+                string oldPreviewPath = Path.Combine(Server.MapPath("~/source/images/preview"), 
+                                        SteelGames.Models.GameList.getInstance()[gameID - 1].PreviewImageName);
+                GeneralUtils.DeleteOldPreview(oldPreviewPath);
+                previewImageFile.SaveAs(previewImageFileFilePath);
+                newPreview = true;
+            }
+
+            var gameImagesFiles = Request.Files.GetMultiple("multipleImages");
+
+            if (gameImagesFiles != null && gameImagesFiles.Count > 0)
+            {
+                string temp = Server.MapPath("~/source/images/games/" + imageFolder);
+
+                if (!Directory.Exists(temp))
+                {
+                    Directory.CreateDirectory(temp);
+                }
+
+                foreach (var image in gameImagesFiles)
+                {
+                    if (image != null && image.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(image.FileName);
+                        var filePath = Path.Combine(Server.MapPath("~/source/images/games/" + imageFolder), fileName);
+                        image.SaveAs(filePath);
+                    }
+                }
+            }
+
+            SystemRequirements req = new SystemRequirements(OS, processor, memory, graphics, directX, storage, soundCard);
+            Game editedGame;
+            if(newPreview)
+            {
+                editedGame = new Game(gameName, platform, description, price, categoryName,
+                                    previewImageFile.FileName, imageFolder, 0, req);
+            }
+            else
+            {
+                editedGame = new Game(gameName, platform, description, price, categoryName,
+                                      imageFolder, 0, req);
+            }
+
+            DBConnector.getInstance().EditGameAttributes(gameID, editedGame, newPreview);
+
+            return RedirectToAction("MainAdminPanel", "Admin");
+        }
     }
 }
