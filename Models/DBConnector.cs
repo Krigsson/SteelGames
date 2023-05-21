@@ -136,13 +136,44 @@ namespace SteelGames.Models
                 {
                     if(GeneralUtils.VerifyPassword(password, reader["Password"].ToString()))
                     {
-                        User currentUser = User.getInstance();
-                        currentUser.UserID = int.Parse(reader["UserID"].ToString());
-                        currentUser.Email = email;
-                        currentUser.PhoneNumber = reader["PhoneNumber"].ToString();
-                        currentUser.Administrator = false;
-                        currentUser.Logged = true;
+                        int tempID = int.Parse(reader["UserID"].ToString());
+                        string phoneNumber = reader["PhoneNumber"].ToString();
                         reader.Close();
+
+                        MySqlCommand getUserInfo;
+                        MySqlDataReader userInfoReader;
+
+                        if(VerifyAdmin(tempID))
+                        {
+                            getUserInfo = ExecuteQuery($"SELECT Position FROM Administrator WHERE " +
+                                $"AdministratorID = {tempID}");
+                            userInfoReader = getUserInfo.ExecuteReader();
+                            string position = "";
+
+                            if(userInfoReader.HasRows && userInfoReader.Read())
+                            {
+                                position = userInfoReader["Position"].ToString();
+                            }
+
+                            User.SetAdmin(tempID, email, phoneNumber, position);
+                        }
+                        else
+                        {
+                            getUserInfo = ExecuteQuery($"SELECT RegistrationDate FROM Client WHERE " +
+                                $"ClientID = {tempID}");
+                            userInfoReader = getUserInfo.ExecuteReader();
+
+                            DateTime registrationDate = DateTime.Now;
+
+                            if(userInfoReader.HasRows && userInfoReader.Read())
+                            {
+                                registrationDate = DateTime.Parse(userInfoReader["RegistrationDate"].ToString());
+                            }
+                            User.SetClient(tempID, email, phoneNumber, registrationDate);
+                        }
+
+                        userInfoReader.Close();
+
                         return true;
                     }
                 }
@@ -281,6 +312,22 @@ namespace SteelGames.Models
             }
 
             GameList.UpdateGames();
+        }
+
+        public bool VerifyAdmin(int userID)
+        {
+            string checkAdminQuery = "SELECT COUNT(*) FROM Administrator WHERE AdministratorID = @value1";
+            bool result = false;
+
+            using (MySqlCommand command = new MySqlCommand(checkAdminQuery, databaseConnection))
+            {
+                command.Parameters.AddWithValue("@value1", userID);
+
+                int count = int.Parse(command.ExecuteScalar().ToString());
+                result = count > 0;
+            }
+
+            return result;
         }
     }
 }

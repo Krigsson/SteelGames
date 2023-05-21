@@ -7,7 +7,7 @@ namespace SteelGames.Models
 {
     public class User
     {
-        private static User instance;
+        protected static User instance;
 
         public int UserID { get; set; }
         public string Email { get; set; }
@@ -15,6 +15,13 @@ namespace SteelGames.Models
         public bool Administrator { get; set; }
         public bool Logged { get; set; }
         protected User() { }
+        protected User(int userID, string email, string phoneNumber, bool logged)
+        {
+                    UserID = userID;
+        Email = email;
+        PhoneNumber = phoneNumber;
+        Logged = logged;
+        }
 
         public static User getInstance()
         {
@@ -36,10 +43,37 @@ namespace SteelGames.Models
             Administrator = false;
         }
 
+        public static void SetClient(int clientID, string email, string phoneNumber, DateTime registrationDate)
+        {
+            instance = new Client(clientID, email, phoneNumber, true, registrationDate);
+        }
+
+        public static void SetAdmin(int adminID, string email, string phoneNumber, string position)
+        {
+            instance = new Admin(adminID, email, phoneNumber, true, position);
+        }
+
     }
 
     public class Client : User
     {
-        public DateTime registrationDate;
+        public DateTime RegistrationDate { get; set; }
+        public Client(int userID, string email, string phoneNumber, bool logged, DateTime registrationDate) :
+                base(userID, email, phoneNumber, logged)
+        {
+            RegistrationDate = registrationDate;
+            instance.Administrator = false;
+        }
+    }
+
+    public class Admin : User
+    {
+        public string Position { get; set; }
+        public Admin(int userID, string email, string phoneNumber, bool logged, string position) :
+                base(userID, email, phoneNumber, logged)
+        {
+            Position = position;
+            instance.Administrator = true;
+        }
     }
 }
