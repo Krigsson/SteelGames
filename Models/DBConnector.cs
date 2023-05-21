@@ -229,5 +229,58 @@ namespace SteelGames.Models
             }
 
         }
+
+        public void EditGameAttributes(int gameID, Game game, bool newPreview)
+        {
+            string editGameQuery = "UPDATE Game " +
+                "SET Name = @value1, Description = @value2, Price = @value3, CategoryName = @value4, " +
+                "Platform = @value5, PreviewImageName = @value6, ImageFolderName = @value7 " +
+                "WHERE GameID = @value8";
+
+            string editGameReqQuery = "Update SystemRequirements " +
+                "SET OS = @value1, Processor = @value2, Memory = @value3, Graphics = @value4, " +
+                "DirectX = @value5, Storage = @value6, SoundCard = @value7 " +
+                "WHERE SystemRequirementsID = @value8";
+
+            string oldPreview = SteelGames.Models.GameList.getInstance()[gameID - 1].PreviewImageName;
+
+            using (MySqlCommand command = new MySqlCommand(editGameQuery, databaseConnection))
+            {
+                command.Parameters.AddWithValue("@value1",game.Name);
+                command.Parameters.AddWithValue("@value2",game.Description);
+                command.Parameters.AddWithValue("@value3",game.Price);
+                command.Parameters.AddWithValue("@value4",game.CategoryName);
+                command.Parameters.AddWithValue("@value5",game.Platform);
+                if(newPreview)
+                {
+                    command.Parameters.AddWithValue("@value6",game.PreviewImageName);
+
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@value6", oldPreview);
+                }
+                command.Parameters.AddWithValue("@value7",game.ImageFolderName);
+                command.Parameters.AddWithValue("@value8", gameID);
+
+                command.ExecuteNonQuery();
+            }
+
+            using (MySqlCommand command = new MySqlCommand(editGameReqQuery, databaseConnection))
+            {
+                command.Parameters.AddWithValue("@value1", game.SysReq.OS);
+                command.Parameters.AddWithValue("@value2", game.SysReq.Processor);
+                command.Parameters.AddWithValue("@value3", game.SysReq.Memory);
+                command.Parameters.AddWithValue("@value4", game.SysReq.Graphics);
+                command.Parameters.AddWithValue("@value5", game.SysReq.DirectX);
+                command.Parameters.AddWithValue("@value6", game.SysReq.Storage);
+                command.Parameters.AddWithValue("@value7", game.SysReq.SoundCard);
+                command.Parameters.AddWithValue("@value8", gameID);
+
+                command.ExecuteNonQuery();
+            }
+
+            GameList.UpdateGames();
+        }
     }
 }
