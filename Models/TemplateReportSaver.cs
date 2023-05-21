@@ -67,4 +67,46 @@ namespace SteelGames.Models
                 ".xlsx";
         }
     }
+
+    public class TemplateAdminPRLReportSaver : TemplateReportSaver
+    {
+        public List<Game> Games { get; set; }
+
+        public TemplateAdminPRLReportSaver(List<Game> games)
+        {
+            Games = games;
+        }
+
+        protected override void CreateHeaders(ExcelPackage package)
+        {
+            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Price list");
+            worksheet.Cells["A1"].Value = "Name";
+            worksheet.Cells["B1"].Value = "Platform";
+            worksheet.Cells["C1"].Value = "Category";
+            worksheet.Cells["D1"].Value = "Price";
+        }
+
+        protected override void FillRows(ExcelPackage package)
+        {
+            ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+            int currentRow = 2;
+            foreach (Game game in Games)
+            {
+                string strRow = currentRow.ToString();
+                worksheet.Cells["A" + strRow].Value = game.Name;
+                worksheet.Cells["B" + strRow].Value = game.Platform;
+                worksheet.Cells["C" + strRow].Value = game.CategoryName;
+                worksheet.Cells["D" + strRow].Value = game.Price;
+                currentRow++;
+            }
+
+        }
+
+        protected override string GenerateFileName()
+        {
+            return "GamesPriceList" +
+                DateTime.Now.ToString("ddMMyyyy-HHmmss") +
+                ".xlsx";
+        }
+    }
 }
