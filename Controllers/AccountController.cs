@@ -63,8 +63,7 @@ namespace SteelGames.Controllers
 
         public ActionResult Logout()
         {
-            User currentUser = SteelGames.Models.User.getInstance();
-            currentUser.Logout();
+            SteelGames.Models.User.getInstance().Logout();
             return RedirectToAction("Index", "Home");
         }
     }

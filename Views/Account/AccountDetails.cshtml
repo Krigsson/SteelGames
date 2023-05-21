@@ -16,6 +16,15 @@
         <p><strong>Email:</strong> @userModel.Email</p>
         <p><strong>Phone:</strong> @userModel.PhoneNumber</p>
 
+        @if (userModel is SteelGames.Models.Admin adminUser)
+        {
+            <p><strong>Position:</strong> @adminUser.Position</p>
+        }
+        else if (userModel is SteelGames.Models.Client clientUser)
+        {
+            <p><strong>Registration Date:</strong> @clientUser.RegistrationDate.ToString("yyyy-MM-dd")</p>
+        }
+
         <h2>Owned Games</h2>
         @Html.ActionLink("Save games to excel", "SaveClientGamesKeyReportXls", "ReportSaver")
         <table>

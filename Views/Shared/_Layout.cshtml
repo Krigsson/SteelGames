@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     var userModel = ViewData["UserModel"] as SteelGames.Models.User;
 }
 
@@ -26,7 +26,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    @if (userModel.Logged == false)
+                    @if (!userModel.Logged)
                     {
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
                         <li>@Html.ActionLink("Register", "Register", "Account")</li>
@@ -35,6 +35,11 @@
                     {
                         <li>@Html.ActionLink("My Account", "AccountDetails", "Account")</li>
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                        if (userModel.Administrator)
+                        {
+
+                            <li>@Html.ActionLink("Admin panel", "MainAdminPanel", "Admin")</li>
+                        }
 
                     }
                 </ul>
@@ -43,7 +48,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-    
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")
