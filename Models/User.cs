@@ -62,7 +62,7 @@ namespace SteelGames.Models
                 base(userID, email, phoneNumber, logged)
         {
             RegistrationDate = registrationDate;
-            instance.Administrator = false;
+            Administrator = false;
         }
     }
 
@@ -73,7 +73,7 @@ namespace SteelGames.Models
                 base(userID, email, phoneNumber, logged)
         {
             Position = position;
-            instance.Administrator = true;
+            Administrator = true;
         }
     }
 }

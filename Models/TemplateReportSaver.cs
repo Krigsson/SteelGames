@@ -84,6 +84,7 @@ namespace SteelGames.Models
             worksheet.Cells["B1"].Value = "Platform";
             worksheet.Cells["C1"].Value = "Category";
             worksheet.Cells["D1"].Value = "Price";
+            worksheet.Cells["E1"].Value = "Keys avaliable";
         }
 
         protected override void FillRows(ExcelPackage package)
@@ -97,6 +98,7 @@ namespace SteelGames.Models
                 worksheet.Cells["B" + strRow].Value = game.Platform;
                 worksheet.Cells["C" + strRow].Value = game.CategoryName;
                 worksheet.Cells["D" + strRow].Value = game.Price;
+                worksheet.Cells["E" + strRow].Value = DBConnector.getInstance().getAvailableKeysForCurrentGame(game.GameID);
                 currentRow++;
             }
 
