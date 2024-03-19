@@ -86,7 +86,7 @@ namespace SteelGames.Models
             MySqlCommand response = ExecuteQuery("SELECT MAX(UserID) FROM User");
             MySqlDataReader reader = response.ExecuteReader();
 
-            if(reader.Read())
+            if (reader.Read())
             {
                 newUserID = reader.GetInt32(0);
             }
@@ -111,7 +111,7 @@ namespace SteelGames.Models
                 command.ExecuteNonQuery();
             }
 
-            using(MySqlCommand command = new MySqlCommand(sqlQueryInsertClient, databaseConnection))
+            using (MySqlCommand command = new MySqlCommand(sqlQueryInsertClient, databaseConnection))
             {
                 command.Parameters.AddWithValue("@value1", newUserID);
                 command.Parameters.AddWithValue("@value2", currentDate);
@@ -122,65 +122,32 @@ namespace SteelGames.Models
 
         }
 
-        public bool loginUser(string email, string password)
+        public User loginUser(string email, string password)
         {
             string query_s = $"SELECT * FROM User WHERE Email = \"{email}\"";
-
             MySqlCommand command = ExecuteQuery(query_s);
-
             MySqlDataReader reader = command.ExecuteReader();
 
-            if(reader.HasRows)
+            if (reader.HasRows && reader.Read())
             {
-                if(reader.Read())
+                int tempID = int.Parse(reader["UserID"].ToString());
+                string phoneNumber = reader["PhoneNumber"].ToString();
+                reader.Close();
+
+                if (VerifyAdmin(tempID))
                 {
-                    if(GeneralUtils.VerifyPassword(password, reader["Password"].ToString()))
-                    {
-                        int tempID = int.Parse(reader["UserID"].ToString());
-                        string phoneNumber = reader["PhoneNumber"].ToString();
-                        reader.Close();
-
-                        MySqlCommand getUserInfo;
-                        MySqlDataReader userInfoReader;
-
-                        if(VerifyAdmin(tempID))
-                        {
-                            getUserInfo = ExecuteQuery($"SELECT Position FROM Administrator WHERE " +
-                                $"AdministratorID = {tempID}");
-                            userInfoReader = getUserInfo.ExecuteReader();
-                            string position = "";
-
-                            if(userInfoReader.HasRows && userInfoReader.Read())
-                            {
-                                position = userInfoReader["Position"].ToString();
-                            }
-
-                            User.SetAdmin(tempID, email, phoneNumber, position);
-                        }
-                        else
-                        {
-                            getUserInfo = ExecuteQuery($"SELECT RegistrationDate FROM Client WHERE " +
-                                $"ClientID = {tempID}");
-                            userInfoReader = getUserInfo.ExecuteReader();
-
-                            DateTime registrationDate = DateTime.Now;
-
-                            if(userInfoReader.HasRows && userInfoReader.Read())
-                            {
-                                registrationDate = DateTime.Parse(userInfoReader["RegistrationDate"].ToString());
-                            }
-                            User.SetClient(tempID, email, phoneNumber, registrationDate);
-                        }
-
-                        userInfoReader.Close();
-
-                        return true;
-                    }
+                    string position = GetAdminPosition(tempID);
+                    return new Admin(tempID, email, phoneNumber, true, position);
+                }
+                else
+                {
+                    DateTime registrationDate = GetClientRegistrationDate(tempID);
+                    return new Client(tempID, email, phoneNumber, true, registrationDate);
                 }
             }
 
             reader.Close();
-            return false;
+            return null; // Return null if login fails
         }
 
         public int getAvailableKeysForCurrentGame(int gameID)
@@ -192,7 +159,7 @@ namespace SteelGames.Models
             MySqlCommand command = ExecuteQuery(query_s);
             MySqlDataReader reader = command.ExecuteReader();
 
-            if(reader.Read())
+            if (reader.Read())
             {
                 result = int.Parse(reader["key_count"].ToString());
             }
@@ -277,21 +244,21 @@ namespace SteelGames.Models
 
             using (MySqlCommand command = new MySqlCommand(editGameQuery, databaseConnection))
             {
-                command.Parameters.AddWithValue("@value1",game.Name);
-                command.Parameters.AddWithValue("@value2",game.Description);
-                command.Parameters.AddWithValue("@value3",game.Price);
-                command.Parameters.AddWithValue("@value4",game.CategoryName);
-                command.Parameters.AddWithValue("@value5",game.Platform);
-                if(newPreview)
+                command.Parameters.AddWithValue("@value1", game.Name);
+                command.Parameters.AddWithValue("@value2", game.Description);
+                command.Parameters.AddWithValue("@value3", game.Price);
+                command.Parameters.AddWithValue("@value4", game.CategoryName);
+                command.Parameters.AddWithValue("@value5", game.Platform);
+                if (newPreview)
                 {
-                    command.Parameters.AddWithValue("@value6",game.PreviewImageName);
+                    command.Parameters.AddWithValue("@value6", game.PreviewImageName);
 
                 }
                 else
                 {
                     command.Parameters.AddWithValue("@value6", oldPreview);
                 }
-                command.Parameters.AddWithValue("@value7",game.ImageFolderName);
+                command.Parameters.AddWithValue("@value7", game.ImageFolderName);
                 command.Parameters.AddWithValue("@value8", gameID);
 
                 command.ExecuteNonQuery();
@@ -328,6 +295,40 @@ namespace SteelGames.Models
             }
 
             return result;
+        }
+
+        private string GetAdminPosition(int adminID)
+        {
+            string query = $"SELECT Position FROM Administrator WHERE AdministratorID = {adminID}";
+            MySqlCommand command = ExecuteQuery(query);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            if (reader.HasRows && reader.Read())
+            {
+                string position = reader["Position"].ToString();
+                reader.Close();
+                return position;
+            }
+
+            reader.Close();
+            return string.Empty;
+        }
+
+        private DateTime GetClientRegistrationDate(int clientID)
+        {
+            string query = $"SELECT RegistrationDate FROM Client WHERE ClientID = {clientID}";
+            MySqlCommand command = ExecuteQuery(query);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            if (reader.HasRows && reader.Read())
+            {
+                DateTime registrationDate = DateTime.Parse(reader["RegistrationDate"].ToString());
+                reader.Close();
+                return registrationDate;
+            }
+
+            reader.Close();
+            return DateTime.Now;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace SteelGames.Controllers
     {
         public ActionResult MainAdminPanel()
         {
-            ViewData["userModel"] = SteelGames.Models.User.getInstance();
+            ViewData["userModel"] = HttpContext.Session["LoggedInUser"];
             ViewData["GameModel"] = SteelGames.Models.GameList.getInstance();
             return View();
         }
@@ -173,6 +173,31 @@ namespace SteelGames.Controllers
             DBConnector.getInstance().EditGameAttributes(gameID, editedGame, newPreview);
 
             return RedirectToAction("MainAdminPanel", "Admin");
+        }
+
+        [HttpGet]
+        public ActionResult GetExistingSoftwareForecast(int gameID)
+        {
+            Game model = SteelGames.Models.GameList.getInstance()[gameID - 1];
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult GetExistingSoftwareForecast ()
+        {
+            return Redirect("https://www.google.com");
+        }
+
+        [HttpGet]
+        public ActionResult GetForecastNonExistSoftware(string a="")
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetForecastNonExistSoftware()
+        {
+            return Redirect("https://www.google.com");
         }
     }
 }

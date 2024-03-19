@@ -1,0 +1,74 @@
+﻿/* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0c0c0c;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.forecasting-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.forecasting-header {
+    text-align: center;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.forecasting-button-container {
+    text-align: center;
+}
+
+.forecasting-button {
+    padding: 10px 20px;
+    background-color: #00aeff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+    .forecasting-button:hover {
+        background-color: #007acc;
+    }
+
+.forecasting-block {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.forecasting-text {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.forecasting-option-picker {
+    margin-bottom: 20px;
+}
+
+.forecasting-date-picker {
+    margin-bottom: 20px;
+}
+
+
+.forecasting-button {
+    background-color: #0288d1;
+    border-radius: 3px;
+    border: 1px solid #1d67ad;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+    .forecasting-button:hover {
+        background-color: #007acc;
+    }
+
+.forecasting-block {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}

@@ -91,6 +91,11 @@
                             Edit
                         </a>
                     </button>
+                    <button>
+                        <a href="@Url.Action("GetExistingSoftwareForecast", "Admin", new {gameID = row.GameID})">
+                            Get Forecast
+                        </a>
+                    </button>
                 </td>
             </tr>
             }

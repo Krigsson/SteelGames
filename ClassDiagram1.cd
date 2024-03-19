@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="SteelGames.Models.User">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACIAAAAAAAAAQAoAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SteelGames.Models.Client">
+    <Position X="4.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SteelGames.Models.Admin">
+    <Position X="1.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SteelGames.Models.SystemRequirements">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAACAAAAAAAAgAAAAAEAgk=</HashCode>
+      <FileName>Models\SystemRequirements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SteelGames.Models.ProcessPurchase">
+    <Position X="5" Y="1.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAACAAAQAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Models\ProcessPurchase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SteelGames.Models.Game">
+    <Position X="11" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAgAAAAAgEAAAQAQCAAAAAACAAIAAAAAgA=</HashCode>
+      <FileName>Models\Game.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SystemRequirements" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SteelGames.Models.GameKeyModel">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="SteelGames.Models.GameKeyModel.KeyStruct" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\Game.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAIAAAAAAAAAAAAAABAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

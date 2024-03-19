@@ -20,13 +20,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("SteelGames", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SWS-Forecast", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    @if (!userModel.Logged)
+                    @if (userModel == null)
                     {
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
                         <li>@Html.ActionLink("Register", "Register", "Account")</li>
@@ -39,6 +39,7 @@
                         {
 
                             <li>@Html.ActionLink("Admin panel", "MainAdminPanel", "Admin")</li>
+                            <li>@Html.ActionLink("Forecasting Tool", "GetForecastNonExistSoftware", "Admin")</li>
                         }
                     }
                 </ul>

@@ -7,8 +7,6 @@ namespace SteelGames.Models
 {
     public class User
     {
-        protected static User instance;
-
         public int UserID { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
@@ -23,17 +21,6 @@ namespace SteelGames.Models
         Logged = logged;
         }
 
-        public static User getInstance()
-        {
-            if(instance == null)
-            {
-                instance = new User();
-                instance.Logged = false;
-            }
-
-            return instance;
-        }
-
         public void Logout()
         {
             Logged = false;
@@ -41,16 +28,6 @@ namespace SteelGames.Models
             Email = "";
             PhoneNumber = "";
             Administrator = false;
-        }
-
-        public static void SetClient(int clientID, string email, string phoneNumber, DateTime registrationDate)
-        {
-            instance = new Client(clientID, email, phoneNumber, true, registrationDate);
-        }
-
-        public static void SetAdmin(int adminID, string email, string phoneNumber, string position)
-        {
-            instance = new Admin(adminID, email, phoneNumber, true, position);
         }
 
     }

@@ -38,8 +38,11 @@ namespace SteelGames.Controllers
             DBConnector connector = DBConnector.getInstance();
             string email = form["email"];
             string password = form["password"];
-            if (connector.loginUser(email, password))
+
+            User loggedInUser = connector.loginUser(email, password);
+            if (loggedInUser != null)
             {
+                HttpContext.Session["LoggedInUser"] = loggedInUser;
                 return RedirectToAction("Index", "Home");
             }
 
@@ -54,7 +57,7 @@ namespace SteelGames.Controllers
         public ActionResult AccountDetails()
         {
             GameKeyModel keyModel = GameKeyModel.getInstance();
-            User currentUser = SteelGames.Models.User.getInstance();
+            User currentUser = (User)HttpContext.Session["LoggedInUser"];
             keyModel.getKeys(currentUser.UserID);
             ViewData["UserModel"] = currentUser;
             ViewData["GameKeyModel"] = keyModel.keys;
@@ -63,7 +66,7 @@ namespace SteelGames.Controllers
 
         public ActionResult Logout()
         {
-            SteelGames.Models.User.getInstance().Logout();
+            HttpContext.Session["LoggedInUser"] = null;
             return RedirectToAction("Index", "Home");
         }
     }

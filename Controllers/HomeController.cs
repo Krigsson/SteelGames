@@ -11,10 +11,13 @@ namespace SteelGames.Controllers
     {
         DBConnector connector = DBConnector.getInstance();
         GameList gameList = GameList.getInstance();
+
         public ActionResult Index()
         {
+            GameList.UpdateGames();
+
             ViewData["GameModel"] = gameList;
-            ViewData["UserModel"] = SteelGames.Models.User.getInstance();
+            ViewData["UserModel"] = HttpContext.Session["LoggedInUser"];
             return View();
         }
         
@@ -26,20 +29,23 @@ namespace SteelGames.Controllers
             model.GetImages();
             model.GetAvaliableKeysCount();
             ViewData["GameModel"] = model;
-            ViewData["UserModel"] = SteelGames.Models.User.getInstance();
+            ViewData["UserModel"] = HttpContext.Session["LoggedInUser"];
 
             return View();
         }
+
         [HttpPost]
         public ActionResult GameDetails(FormCollection form)
         {
-            if(!SteelGames.Models.User.getInstance().Logged)
+            User currentUser = (User)HttpContext.Session["LoggedInUser"];
+
+            if (currentUser == null)
             {
                 return RedirectToAction("Login", "Account");
             }
+
             int gameID = int.Parse(form["gameID"]);
-            HttpContext.Session.Clear();
-            HttpContext.Session.Add("CurrentGame", gameList[gameID - 1]);
+            HttpContext.Session["CurrentGame"] = gameList[gameID - 1];
             return RedirectToAction("BuyGame", "Purchase");
         }
 

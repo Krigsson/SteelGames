@@ -1,0 +1,62 @@
+﻿body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0f0f0f;
+    color: #fff;
+}
+
+.forecast-container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #191919;
+}
+
+.forecast-block {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .forecast-block img {
+        max-width: 200px;
+        margin-right: 20px;
+    }
+
+.forecast-info {
+    flex: 1;
+}
+
+.forecast-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+    .forecast-inputs input[type="date"] {
+        width: 45%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #000;
+    }
+
+.forecast-button {
+    display: block;
+    margin:0 auto;
+    padding: 10px 20px;
+    background-color: #00aeff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+    .forecast-button:hover {
+        background-color: #007acc;
+    }

@@ -8,7 +8,7 @@ namespace SteelGames.Controllers
         [HttpGet]
         public ActionResult BuyGame()
         {
-            ViewData["UserModel"] = SteelGames.Models.User.getInstance();
+            ViewData["UserModel"] = HttpContext.Session["LoggedInUser"];
             ViewData["GameModel"] = (Game)HttpContext.Session["CurrentGame"];
             return View();
         }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 
 namespace SteelGames.Models
-{
+{   
     public class Game
     {
         public int GameID { get; set; }
@@ -20,6 +20,14 @@ namespace SteelGames.Models
         public string ImageFolderName { get; set; }
         public int SystemReqID { get; set; }
         public SystemRequirements SysReq { get; set; }
+
+        public SystemRequirements SystemRequirements
+        {
+            get => default;
+            set
+            {
+            }
+        }
 
         public Game() { }
         public Game(string name, string platform, string description, double price, string categoryName,
@@ -94,7 +102,7 @@ namespace SteelGames.Models
             return instance;
         }
 
-        public struct KeyStruct
+        public class KeyStruct
         {
             public string Key { get; set; }
             public string GameName { get; set; }

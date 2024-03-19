@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "GetExistingSoftwareForecast";
+}
+
+<link href="~/Content/page_styles/forecast_existing.css" rel="stylesheet" />
+
+<body>
+    <div class="forecast-container">
+        <div class="forecast-block">
+            <img src="~/source/images/preview/@Model.PreviewImageName" alt="Image">
+            <div class="forecast-info">
+                <h2 style="color: #00aeff;">@Model.Name</h2>
+                <p>@Model.Description</p>
+            </div>
+        </div>
+        @using (Html.BeginForm("GetExistingSoftwareForecast", "Admin", FormMethod.Post))
+        {
+            <div class="forecast-inputs">
+                <label>Start date</label>
+                <label>End date</label>
+            </div>
+            <div class="forecast-inputs">
+                <input type="date" id="startDate" name="startDate">
+                <input type="date" id="endDate" name="endDate">
+            </div>
+            <button class="forecast-button" type="submit">Get Forecast</button>
+        }
+    </div>
+</body>

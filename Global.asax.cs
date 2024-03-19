@@ -25,5 +25,10 @@ namespace SteelGames
                                                          "JOIN SystemRequirements ON " +
                                                          "Game.SystemRequirementsID = SystemRequirements.SystemRequirementsID;"));
         }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            HttpContext.Current.Session["LoggedInUser"] = null;
+        }
     }
 }

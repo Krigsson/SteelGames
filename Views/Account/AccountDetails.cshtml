@@ -16,12 +16,14 @@
         <p><strong>Email:</strong> @userModel.Email</p>
         <p><strong>Phone:</strong> @userModel.PhoneNumber</p>
 
-        @if (userModel is SteelGames.Models.Admin adminUser)
+        @if (userModel is SteelGames.Models.Admin)
         {
+            var adminUser = userModel as SteelGames.Models.Admin;
             <p><strong>Position:</strong> @adminUser.Position</p>
         }
-        else if (userModel is SteelGames.Models.Client clientUser)
+        else if (userModel is SteelGames.Models.Client)
         {
+            var clientUser = userModel as SteelGames.Models.Client;
             <p><strong>Registration Date:</strong> @clientUser.RegistrationDate.ToString("yyyy-MM-dd")</p>
         }
 

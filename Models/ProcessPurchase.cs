@@ -12,11 +12,12 @@ namespace SteelGames.Models
     {
         public static void processPurchase(string cardNumber, double price, int gameID)
         {
+            User currentUser = (User)HttpContext.Current.Session["LoggedInUser"];
             string transactionNumber = generateTransaction();
             string lastCardDigits = cardNumber.Substring(cardNumber.Length - 4);
             DateTime currentDate = DateTime.Now.Date;
             int keyID = getKeyID(gameID);
-            int userID = User.getInstance().UserID;
+            int userID = currentUser.UserID;
 
             completePurchase(transactionNumber, lastCardDigits, price, currentDate, keyID, userID);
 

@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <IISExpressSSLPort>44331</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -46,6 +46,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <IncludeIisSettings>true</IncludeIisSettings>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
@@ -195,6 +198,7 @@
     <Compile Include="Models\GameList.cs" />
     <Compile Include="Models\GeneralUtils.cs" />
     <Compile Include="Models\ProcessPurchase.cs" />
+    <Compile Include="Models\SessionInitializationModule.cs" />
     <Compile Include="Models\SystemRequirements.cs" />
     <Compile Include="Models\TemplateReportSaver.cs" />
     <Compile Include="Models\User.cs" />
@@ -206,6 +210,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\page_styles\account_details.css" />
+    <Content Include="Content\page_styles\forecast_existing.css" />
+    <Content Include="Content\page_styles\forecast_nonexist.css" />
     <Content Include="Content\page_styles\game_details_page.css" />
     <Content Include="Content\page_styles\main_page.css" />
     <Content Include="Content\page_styles\purchase_page.css" />
@@ -216,9 +222,18 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile4.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile5.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile4.pubxml" />
     <None Include="Properties\PublishProfiles\SteelGames20230526133115 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -231,6 +246,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jsscripts\game_details_carousel.js" />
+    <Content Include="Scripts\jsscripts\nonexist_script.js" />
     <Content Include="Scripts\jsscripts\register_process_post.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
@@ -258,6 +274,8 @@
     <Content Include="Views\Admin\AddGameAdminPanel.cshtml" />
     <Content Include="Views\Admin\AddKeysToGame.cshtml" />
     <Content Include="Views\Admin\EditGameAdminPanel.cshtml" />
+    <Content Include="Views\Admin\GetExistingSoftwareForecast.cshtml" />
+    <Content Include="Views\Admin\GetForecastNonExistSoftware.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
